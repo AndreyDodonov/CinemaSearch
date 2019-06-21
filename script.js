@@ -11,12 +11,14 @@ function apiSearch(event) {
 
     fetch(server)
         .then(function(value){
+            //console.log(value.status);
             if (value.status !== 200) {
                 return Promise.reject(value);
             }
             return value.json();
         })
         .then(function(output){
+            //console.log(output);
             let inner = '';
             output.results.forEach(function (item) {
                 
@@ -34,7 +36,7 @@ function apiSearch(event) {
         })
         .catch(function(reason) {
             movie.innerHTML = 'Упс, что-то пошло не так!';
-            console.log('error: ' + reason.status );
+            console.error('error: ' + reason.status );
         });
     }
 searchForm.addEventListener('submit', apiSearch);   
