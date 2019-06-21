@@ -2,3 +2,9 @@ img {
     max-width: 80%;
     border-radius: 20px;
 }
+
+.item{
+    margin: 15px;
+    text-align: center;
+    font-weight: 700;
+}

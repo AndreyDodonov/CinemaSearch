@@ -26,7 +26,7 @@ function apiSearch(event) {
                 let dateItem = item.release_date;
                 let img = item.poster_path ? urlImage + item.poster_path : 'img/image_alt.png';
                 inner += `
-                    <div class="col-12-col-md-4 col-x1-3 item">
+                    <div class="col-12-col-md-4 col-x1-3">
                     <img src="${img}" alt="Постера нет ("> <br>
                     <b>Название: ${nameItem}<br>
                     Дата выхода: ${dateItem}</b></div>
