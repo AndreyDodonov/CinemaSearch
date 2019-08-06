@@ -69,28 +69,28 @@ function addEventMedia() {
 
 function showFullInfo() {
     console.dir(this.dataset.type); /* this - контекст вызова */
-    let url ='';
+    let url = '';
     if (this.dataset.type === 'movie') {
-        url = 'https://api.themoviedb.org/3/movie/'+this.dataset.id+'?api_key=537a6d92902c73e213db4ccffd38483b&language=ru-RU';
-    }else if (this.dataset.type === 'tv'){
-        url = 'https://api.themoviedb.org/3/tv/'+this.dataset.id+'?api_key=537a6d92902c73e213db4ccffd38483b&language=ru-RU';
-    }else {
+        url = 'https://api.themoviedb.org/3/movie/' + this.dataset.id + '?api_key=537a6d92902c73e213db4ccffd38483b&language=ru-RU';
+    } else if (this.dataset.type === 'tv') {
+        url = 'https://api.themoviedb.org/3/tv/' + this.dataset.id + '?api_key=537a6d92902c73e213db4ccffd38483b&language=ru-RU';
+    } else {
         movie.innerHTML = 'ошибка';
     }
 
     fetch(url)
-        .then ((response) => {
-            if (response.status !== 200){
+        .then((response) => {
+            if (response.status !== 200) {
                 return Promise.reject(new Error(response.status));
             }
             return response.json();
         })
         .then((output) => {
-            let genres = '';
-            output.genres.forEach((item) => {
-                genres += item.name + ' ';
-            });
-            movie.innerHTML = `
+                let genres = '';
+                output.genres.forEach((item) => {
+                    genres += item.name + ' ';
+                });
+                movie.innerHTML = `
             <h4 class="col-12 text-center text-info">${output.name||output.title}</h4>
             <div class="col-4">
                 <img src='${urlImage+output.poster_path}' alt='${output.name||output.title}'>
@@ -107,10 +107,10 @@ function showFullInfo() {
                 <div class='youtube'></div>
             </div> 
             `;
-        }
+            }
 
-        )
-    
+        );
+
 }
 
 document.addEventListener('DOMContentLoaded', () => { // событие - загрузка DOM структуры
