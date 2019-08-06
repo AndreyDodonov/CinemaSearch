@@ -1,5 +1,3 @@
-
-
 const searchForm = document.querySelector('#search-form');
 const movie = document.querySelector('#movies');
 const urlImage = 'https://image.tmdb.org/t/p/w500';
@@ -8,7 +6,7 @@ function apiSearch(event) {
     event.preventDefault(); /* что бы страница не перезагружалась */
 
     const searchText = document.querySelector('.form-control').value;
-    if (searchText.trim().length === 0){                        // в случае пустого запроса
+    if (searchText.trim().length === 0) { // в случае пустого запроса
         movie.innerHTML = '<h2 class="col-12 text-center text-danger">Введён пустой запрос</h2> ';
         return;
     }
@@ -16,23 +14,23 @@ function apiSearch(event) {
     movie.innerHTML = '<div class="spinner"></div>';
 
     fetch(server)
-        .then(function(value){
+        .then((value) => {
             //console.log(value.status);
             if (value.status !== 200) {
                 return Promise.reject(value);
             }
             return value.json();
         })
-        .then(function(output){
+        .then((output) => {
             //console.log(output);
             let inner = '<h2 class="col-12 text-center text-warning">Результаты поиска</h2>';
-            if (output.results.length === 0) {                // если результат поиска == 0
+            if (output.results.length === 0) { // если результат поиска == 0
                 movie.innerHTML = '<h2 class="col-12 text-center text-warning">По вашему запросу ничего не найдено</h2>';
                 return;
             }
-            output.results.forEach(function (item) {
-               // console.log(item);
-                
+            output.results.forEach((item) => {
+                // console.log(item);
+
                 let nameItem = item.name || item.title;
                 let dateItem = item.release_date;
                 let img = item.poster_path ? urlImage + item.poster_path : 'img/image_alt.png';
@@ -47,58 +45,59 @@ function apiSearch(event) {
             });
             movie.innerHTML = inner;
 
-            addEventMedia();          
-            
-            
+            addEventMedia();
+
+
 
         })
-        .catch(function(reason) {
+        .catch((reason) => {
             movie.innerHTML = 'Упс, что-то пошло не так!';
-            console.error('error: ' + reason.status );
+            console.error('error: ' + reason.status);
         });
-    }
-searchForm.addEventListener('submit', apiSearch);   
+}
+searchForm.addEventListener('submit', apiSearch);
 
-function addEventMedia(){
+function addEventMedia() {
     const media = movie.querySelectorAll('.item');
-    media.forEach(function(elem){
+    media.forEach((elem) => {
         elem.style.cursor = 'pointer';
         elem.addEventListener('click', showFullInfo);
-    })
-    
+    });
+
 }
 
 
-function showFullInfo(){
-   console.dir(this.dataset);         /* this - контекст вызова */
-    // let url ='';
-    // if (this.dataset.type === 'movie') {
-    //     url = 'кино';
-    // }else if (this.dataset.type === 'tv'){
-    //     url = 'сериал';
-    // }else {
-    //     movie.innerHTML = 'ошибка';
-    // }
+function showFullInfo() {
+    console.dir(this.dataset.type); /* this - контекст вызова */
+    let url ='';
+    if (this.dataset.type === 'movie') {
+        url = 'кино';
+    }else if (this.dataset.type === 'tv'){
+        url = 'сериал';
+    }else {
+        movie.innerHTML = 'ошибка';
+    }
 }
 
-document.addEventListener('DOMContentLoaded', function(){   // событие - загрузка DOM структуры
+document.addEventListener('DOMContentLoaded', () => { // событие - загрузка DOM структуры
     //console.log('Ура, загрузилось!');
     fetch('https://api.themoviedb.org/3/trending/all/week?api_key=537a6d92902c73e213db4ccffd38483b&language=ru-RU')
-        .then(function(value){
-            
+        .then((value) => {
+
             if (value.status !== 200) {
                 return Promise.reject(value);
             }
             return value.json();
         })
-        .then(function(output){
+        .then((output) => {
+            /* .then (function(output)) { */
             let inner = '<h4 class="col-12 text-center text-warning">Популярное за неделю</h4>';
-            if (output.results.length === 0) {                // если результат поиска == 0
+            if (output.results.length === 0) { // если результат поиска == 0
                 movie.innerHTML = '<h2 class="col-12 text-center text-warning">По вашему запросу ничего не найдено</h2>';
                 return;
             }
-            output.results.forEach(function (item) {
-                              
+            output.results.forEach((item) => {
+
                 let nameItem = item.name || item.title;
                 let mediaType = item.title ? 'movie' : 'tv';
                 let dateItem = item.release_date;
@@ -113,11 +112,11 @@ document.addEventListener('DOMContentLoaded', function(){   // событие - 
             });
             movie.innerHTML = inner;
 
-            addEventMedia();   
+            addEventMedia();
 
         })
-        .catch(function(reason) {
+        .catch((reason) => {
             movie.innerHTML = 'Упс, что-то пошло не так!';
-            console.error('error: ' + reason.status );
+            console.error('error: ' + reason.status);
         });
 });
