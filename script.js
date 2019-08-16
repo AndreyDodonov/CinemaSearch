@@ -1,8 +1,10 @@
+'use strict';
+
 const searchForm = document.querySelector('#search-form');
 const movie = document.querySelector('#movies');
 const urlImage = 'https://image.tmdb.org/t/p/w500';
 
-function apiSearch(event) {
+const apiSearch = (event) => {
     event.preventDefault(); /* что бы страница не перезагружалась */
 
     const searchText = document.querySelector('.form-control').value;
@@ -54,20 +56,19 @@ function apiSearch(event) {
             movie.innerHTML = 'Упс, что-то пошло не так!';
             console.error('error: ' + reason.status);
         });
-}
+};
 searchForm.addEventListener('submit', apiSearch);
 
-function addEventMedia() {
+const addEventMedia = () => {
     const media = movie.querySelectorAll('img[data-id]');
     media.forEach((elem) => {
         elem.style.cursor = 'pointer';
         elem.addEventListener('click', showFullInfo);
     });
 
-}
+};
 
-
-function showFullInfo() {
+const showFullInfo = () => {
     console.dir(this.dataset.type); /* this - контекст вызова */
     let url = '';
     if (this.dataset.type === 'movie') {
@@ -107,17 +108,13 @@ function showFullInfo() {
                 <div class='youtube'></div>
             </div> 
             `;
-            }
+            });
 
-        );
+};
 
-}
-
-document.addEventListener('DOMContentLoaded', () => { // событие - загрузка DOM структуры
-    //console.log('Ура, загрузилось!');
+const startView = () => {  
     fetch('https://api.themoviedb.org/3/trending/all/week?api_key=537a6d92902c73e213db4ccffd38483b&language=ru-RU')
         .then((value) => {
-
             if (value.status !== 200) {
                 return Promise.reject(value);
             }
@@ -152,5 +149,8 @@ document.addEventListener('DOMContentLoaded', () => { // событие - заг
         .catch((reason) => {
             movie.innerHTML = 'Упс, что-то пошло не так!';
             console.error('error: ' + reason.status);
-        });
-});
+        });               
+    
+};
+
+document.addEventListener('DOMContentLoaded', startView());
