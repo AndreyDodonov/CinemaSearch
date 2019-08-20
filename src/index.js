@@ -2,8 +2,8 @@
 
 
 import startView from './modules/startView';
-// import showFullInfo from './modules/showFullInfo';
-// import addEventMedia from './modules/addEventMedia';
+import showFullInfo from './modules/showFullInfo';
+import addEventMedia from './modules/addEventMedia';
 import apiSearch from './modules/apiSearch';
 
 const searchForm = document.querySelector('#search-form');
