@@ -37,9 +37,9 @@ const apiSearch = (event) => {
                 let dataInfo = '';
                 if (item.media_type !== 'person') {dataInfo = `data-id="${item.id}" data-type="${item.media_type}"`;
                 inner += `
-                    <div class="col-12 col-sm-6 col-md-4 col-lg-3 text-center item">
+                    <div class="col-12-col-md-4 col-x1-3 item">
                     <img src="${img}" class="img_poster" alt="Изображение недоступно(" ${dataInfo}> <br>
-                    <b>Название: ${nameItem}<br>
+                    <b> ${nameItem}<br>
                     Дата выхода: ${dateItem}</b></div>
                 `;}
             });

@@ -26,7 +26,7 @@ const startView = () => {
                 inner += `
                     <div class="col-12-col-md-4 col-x1-3 item">
                     <img src="${img}" class="img_poster" alt="Изображение недоступно(" ${dataInfo}> <br>
-                    <b>Название: ${nameItem}<br>
+                    <b> ${nameItem}<br>
                     Дата выхода: ${dateItem}</b></div>
                 `;
             });

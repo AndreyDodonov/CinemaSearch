@@ -11,6 +11,8 @@ img {
     margin: 15px;
     text-align: center;
     font-weight: 700;
+    white-space: normal;
+    width: 20%;
 }
 .spinner{
     margin: 0 auto;
