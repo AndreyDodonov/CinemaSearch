@@ -1,3 +1,5 @@
+import getTrailer from './getTrailer';
+
 const showFullInfo = () => {
     const movie = document.querySelector('#movies');
     const urlImage = 'https://image.tmdb.org/t/p/w500';
@@ -48,7 +50,9 @@ const showFullInfo = () => {
                 <div class='youtube'></div>
             </div> 
             `;
-            });
+            getTrailer(this.dataset.type, this.dataset.id);
+        });    
+         
 };
 
 export default showFullInfo;
