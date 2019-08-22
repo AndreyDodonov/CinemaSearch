@@ -7,6 +7,14 @@ img {
     height: 250px;
 }
 
+.item:hover {
+    opacity: 0.8;
+    filter: alpha(opacity=80);
+    transition: all .2s ease-in-out;
+    transform: scale(1.1);
+    }
+    
+
 .item{
     margin: 15px;
     text-align: center;
