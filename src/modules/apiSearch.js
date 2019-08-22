@@ -1,6 +1,7 @@
 import addEventMedia from './addEventMedia';
 
 const apiSearch = (event) => {
+    console.log('apiSearch');
     const movie = document.querySelector('#movies');
     const urlImage = 'https://image.tmdb.org/t/p/w500';
     

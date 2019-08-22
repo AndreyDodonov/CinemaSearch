@@ -1,6 +1,7 @@
 import addEventMedia from './addEventMedia';
 
 const startView = () => {  
+    console.log('startView');
     const movie = document.querySelector('#movies');
     const urlImage = 'https://image.tmdb.org/t/p/w500';
     fetch('https://api.themoviedb.org/3/trending/all/week?api_key=537a6d92902c73e213db4ccffd38483b&language=ru-RU')

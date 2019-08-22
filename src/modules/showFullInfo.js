@@ -1,6 +1,8 @@
 import getTrailer from './getTrailer';
 
 const showFullInfo = () => {
+    
+    console.log('showFullInfo');
     const movie = document.querySelector('#movies');
     const urlImage = 'https://image.tmdb.org/t/p/w500';
     console.dir(this.dataset.type); 
