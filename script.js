@@ -1,9 +1,9 @@
-const searchForm = document.querySelector('#search-form');
-const movie = document.querySelector('#movies');
-const urlImage = 'https://image.tmdb.org/t/p/w500';
+const searchForm = document.querySelector('#search-form'),
+      movie = document.querySelector('#movies'),
+      urlImage = 'https://image.tmdb.org/t/p/w500';
 /* jshint maxlen: 220 */
 
-function apiSearch(event) {
+const apiSearch = (event) => {
     event.preventDefault(); /* что бы страница не перезагружалась */
 
     const searchText = document.querySelector('.form-control').value;
@@ -56,20 +56,20 @@ function apiSearch(event) {
             movie.innerHTML = 'Упс, что-то пошло не так!';
             console.error('error: ' + reason.status);
         });
-}
+};
+
 searchForm.addEventListener('submit', apiSearch);
 
-function addEventMedia() {
+const addEventMedia = () => {
     const media = movie.querySelectorAll('img[data-id]');
     media.forEach((elem) => {
         elem.style.cursor = 'pointer';
         elem.addEventListener('click', showFullInfo);
     });
 
-}
+};
 
-
-function showFullInfo() {
+function showFullInfo () {
     console.dir(this.dataset.type); /* this - контекст вызова */
     let url = '';
     if (this.dataset.type === 'movie') {
@@ -94,26 +94,32 @@ function showFullInfo() {
                 });
                 movie.innerHTML = `
             <h4 class="col-12 text-center text-info">${output.name||output.title}</h4>
+            
             <div class="col-4">
                 <img src='${urlImage+output.poster_path}' alt='${output.name||output.title}'>
                 ${output.homepage ? `<p class='text-center'><a href="${output.homepage}" target="_blank">Официальная страница</a> </p>`:''}
                 ${output.imdb_id ? `<p class='text-center'><a href="https://imdb.com/title/${output.imdb_id}" target="_blank">страница IMDB.com</a> </p>`:''} 
             </div>
+            
             <div class="col-8">
                 <p> Рейтинг: ${output.vote_average}</p>
                 <p> Статус: ${output.status}</p>
                 <p> Премьера: ${output.first_air_date || output.release_date}</p>
                 ${(output.last_episode_to_air) ? `<p>${output.number_of_seasons} сезон ${output.last_episode_to_air.episode_number} серий вышло </p>`:''}
                 <div>Жанры: ${genres}</div>
+                
                 <br>
                 <div class='youtube'></div>
             </div> 
             `;
+            
             getVideo(this.dataset.type, this.dataset.id);
         });    
 }
 
-document.addEventListener('DOMContentLoaded', function()  { 
+document.addEventListener('DOMContentLoaded', startView);
+
+function startView() { 
     //console.log('Ура, загрузилось!');
     fetch('https://api.themoviedb.org/3/trending/all/week?api_key=537a6d92902c73e213db4ccffd38483b&language=ru-RU')
         .then((value) => {
@@ -152,9 +158,9 @@ document.addEventListener('DOMContentLoaded', function()  {
             movie.innerHTML = 'Упс, что-то пошло не так!';
             console.error('error: ' + reason.status);
         });
-});
+}
 
-function getVideo(type, id) {
+const getVideo = (type, id) => {
     /* jshint maxlen: 250 */
     let youtube = movie.querySelector('.youtube');
     fetch(`https://api.themoviedb.org/3/${type}/${id}/videos?api_key=537a6d92902c73e213db4ccffd38483b&language=ru-RU`)
@@ -173,7 +179,7 @@ function getVideo(type, id) {
             }
             output.results.forEach((item) => {
                 videoFrame += '<iframe width="560" height="315" src="https://www.youtube.com/embed/' + item.key + '" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
-                console.log(videoFrame);
+               // console.log(videoFrame);
             });
             youtube.innerHTML = videoFrame;
         })
@@ -182,4 +188,4 @@ function getVideo(type, id) {
             console.error(reason || reason.status);
 
         });
-}
+};
